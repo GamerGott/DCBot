@@ -1,0 +1,89 @@
+{
+  "command": [
+    {
+      "name": "User Joins Server",
+      "perms": [],
+      "actions": [
+        {
+          "name": "Mitglieds rolle",
+          "category": "User Action",
+          "type": "Add Role to User",
+          "user": "${tempVars.newuser.id}",
+          "rolename": "Mitglied"
+        },
+        {
+          "name": "Willkomens Nachicht",
+          "category": "Message",
+          "type": "Send Message",
+          "channelname": "771763814512721920",
+          "messagetext": "Moin Moin ${tempVars.newuser.id} willkommen auf dem $$ServerName$$ !!!",
+          "savetovariable": "",
+          "savetovariabletype": "temp"
+        }
+      ],
+      "var": {
+        "user": "newuser"
+      }
+    },
+    {
+      "name": "Any Message",
+      "perms": [],
+      "actions": [
+        {
+          "name": "gib dem user xp",
+          "category": "User Data",
+          "type": "Edit User Data",
+          "user": "${tempVars.msguser.id}",
+          "field": "xp",
+          "oper": "+",
+          "value": "1"
+        }
+      ],
+      "var": {
+        "user": "msguser"
+      }
+    },
+    {
+      "name": "User Kicked",
+      "perms": [],
+      "actions": [
+        {
+          "name": "kick",
+          "category": "Message",
+          "type": "Send Message",
+          "channelname": "771763814512721920",
+          "messagetext": "${tempVars.kickuser.id} wurde gekickt",
+          "savetovariable": "",
+          "savetovariabletype": "temp"
+        }
+      ],
+      "var": {
+        "user": "kickuser"
+      }
+    },
+    {
+      "name": "User Banned",
+      "perms": [],
+      "actions": [
+        {
+          "name": "ban",
+          "category": "Message",
+          "type": "Send Message",
+          "channelname": "771763814512721920",
+          "messagetext": "${tempVars.banuser.id} wurde geband",
+          "savetovariable": "",
+          "savetovariabletype": "temp"
+        }
+      ],
+      "var": {
+        "user": "banuser"
+      }
+    },
+    {
+      "name": "Bot Initialization",
+      "perms": [],
+      "actions": [],
+      "var": {}
+    }
+  ]
+}

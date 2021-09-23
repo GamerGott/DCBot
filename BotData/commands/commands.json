@@ -1,0 +1,677 @@
+{
+  "command": [
+    {
+      "name": "help",
+      "perms": [],
+      "actions": [
+        {
+          "name": "command author 1",
+          "category": "Variable",
+          "type": "Get Mentioned User",
+          "varname": "CAH",
+          "vartype": "User",
+          "savevartype": "temp"
+        },
+        {
+          "name": "help menu_1_1",
+          "category": "Message",
+          "type": "Send Embed",
+          "fields": [
+            {
+              "name": "?help",
+              "value": "Zeigt dir dieses Menu",
+              "inline": "true"
+            },
+            {
+              "name": "?DC",
+              "value": "Link zum DC Server von Gamer Gott",
+              "inline": "true"
+            },
+            {
+              "name": "?DCP",
+              "value": "Link zu den DC´s meiner Freunde / DC Partner",
+              "inline": "true"
+            },
+            {
+              "name": "?LOL",
+              "value": "Lass dich überaschen",
+              "inline": "true"
+            },
+            {
+              "name": "?xp",
+              "value": "Zeigt die XP des users",
+              "inline": "true"
+            }
+          ],
+          "channelname": "${dbsVars.CommandChannel.id}",
+          "color": "11FF00",
+          "title": "Help Menu",
+          "url": "",
+          "authorname": "Gamer Bot",
+          "authorimageurl": "",
+          "authorlink": "",
+          "description": "",
+          "thumbnail": "",
+          "image": "",
+          "footer": "Angefordert von ${tempVars.CAH.id}",
+          "timestamp": "BOOL_TRUE@@",
+          "savetovariable": "",
+          "savetovariabletype": "temp"
+        },
+        {
+          "name": "Help Admin",
+          "category": "Message",
+          "type": "Send Embed",
+          "fields": [
+            {
+              "name": "?kick @...",
+              "value": "?kickt den gewünchten User",
+              "inline": "true"
+            },
+            {
+              "name": "?ban @...",
+              "value": "bant den gewünchten User",
+              "inline": "true"
+            },
+            {
+              "name": "?(status)",
+              "value": "Ändert den status des bot´s (?on; ?off; ?abwesend; ?nicht_stören)",
+              "inline": "true"
+            },
+            {
+              "name": "?clear",
+              "value": "cleart alle nachichten die nicht mehr als 2 wochen alt sind",
+              "inline": "true"
+            },
+            {
+              "name": "?givexp @...",
+              "value": "gibt dem user eine bestimmte anzahl an xp",
+              "inline": "true"
+            },
+            {
+              "name": "?resetxp @...",
+              "value": "resetet die xp eines bestimmten users",
+              "inline": "true"
+            }
+          ],
+          "channelname": "${dbsVars.CommandChannel.id}",
+          "color": "FF0000",
+          "title": "Admin Commands",
+          "url": "",
+          "authorname": "",
+          "authorimageurl": "",
+          "authorlink": "",
+          "description": "",
+          "thumbnail": "",
+          "image": "",
+          "footer": "Angefordert von ${tempVars.CAH.id}",
+          "timestamp": "BOOL_TRUE@@",
+          "savetovariable": "",
+          "savetovariabletype": "temp"
+        }
+      ]
+    },
+    {
+      "name": "DC",
+      "actions": [
+        {
+          "name": "DC ausgabe",
+          "category": "Message",
+          "type": "Send Embed",
+          "fields": [
+            {
+              "name": "Gamer Gott´s DC Server",
+              "value": "Ihr könnt dem DC Server von Gamer Gott unter: ... beitreten",
+              "inline": "true"
+            }
+          ],
+          "channelname": "${dbsVars.CommandChannel.id}",
+          "color": "BB00FF",
+          "title": "DC",
+          "url": "",
+          "authorname": "Gamer Bot",
+          "authorimageurl": "",
+          "authorlink": "",
+          "description": "",
+          "thumbnail": "author.avatar_url",
+          "image": "",
+          "footer": "",
+          "timestamp": "false",
+          "savetovariable": "",
+          "savetovariabletype": "temp"
+        }
+      ]
+    },
+    {
+      "name": "kick",
+      "perms": [],
+      "actions": [
+        {
+          "name": "Ist der user berechtigt zu kicken",
+          "category": "User Action",
+          "type": "Check User Permissions",
+          "trueActions": [
+            {
+              "name": "finde den User der gekickt werden soll",
+              "category": "Variable",
+              "type": "Get Mentioned User",
+              "varname": "GSK",
+              "vartype": "User",
+              "savevartype": "temp"
+            },
+            {
+              "name": "kicke den gesuchten user",
+              "category": "User Action",
+              "type": "Kick User",
+              "user": "${tempVars.GSK.id}",
+              "reason": "Kick eines Admins"
+            }
+          ],
+          "falseActions": [
+            {
+              "name": "Error Nachicht_6",
+              "category": "Message",
+              "type": "Send Message",
+              "channelname": "${dbsVars.CommandChannel.id}",
+              "messagetext": "Nur berechtigte User können diesen befehl ausführen",
+              "savetovariable": "",
+              "savetovariabletype": "temp"
+            }
+          ],
+          "user": "${dbsVars.CommandAuthor.id}",
+          "permissions": [
+            "KICK_MEMBERS"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "ban",
+      "perms": [],
+      "actions": [
+        {
+          "name": "Ist der user berechtigt zu bannen",
+          "category": "User Action",
+          "type": "Check User Permissions",
+          "trueActions": [
+            {
+              "name": "finde den User der gebant werden soll",
+              "category": "Variable",
+              "type": "Get Mentioned User",
+              "varname": "gesuchterSpielerBan",
+              "vartype": "User",
+              "savevartype": "temp"
+            },
+            {
+              "name": "Banne den gesuchten User",
+              "category": "User Action",
+              "type": "Ban User",
+              "user": "${tempVars.gesuchterSpielerBan.id}",
+              "reason": "Ban eines Admins",
+              "days": "7"
+            }
+          ],
+          "falseActions": [
+            {
+              "name": "Error Nachicht_7",
+              "category": "Message",
+              "type": "Send Message",
+              "channelname": "${dbsVars.CommandChannel.id}",
+              "messagetext": "Nur berechtigte User können diesen befehl ausführen",
+              "savetovariable": "",
+              "savetovariabletype": "temp"
+            }
+          ],
+          "user": "${dbsVars.CommandAuthor.id}",
+          "permissions": [
+            "BAN_MEMBERS"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "DCP",
+      "perms": [],
+      "actions": [
+        {
+          "name": "DCP ausgabe",
+          "category": "Message",
+          "type": "Send Embed",
+          "fields": [
+            {
+              "name": "SuffixHD",
+              "value": "SuffixHD ist ein sehr freundlicher und netter kerl ich leite mit ihm einen hide and seek Minecraftserver die Serveraddresse dazu findet ihr auf seinem DC Server unter: https://discord.gg/WqeqctFVx8",
+              "inline": "true"
+            },
+            {
+              "name": "Johann9507",
+              "value": "Echt ein Cooler DuD und mein nachbar ihr könnt seinem DC Server gerne unter: https://discord.gg/mctn7VmmkD beitreten.",
+              "inline": "true"
+            }
+          ],
+          "channelname": "${dbsVars.CommandChannel.id}",
+          "color": "FFFFFF",
+          "title": "DCP (Discord Partner)",
+          "url": "",
+          "authorname": "",
+          "authorimageurl": "",
+          "authorlink": "",
+          "description": "",
+          "thumbnail": "",
+          "image": "",
+          "footer": "",
+          "timestamp": "false",
+          "savetovariable": "",
+          "savetovariabletype": "temp"
+        }
+      ]
+    },
+    {
+      "name": "LOL",
+      "perms": [],
+      "actions": [
+        {
+          "name": "help menu_1_2",
+          "category": "Message",
+          "type": "Send Embed",
+          "channelname": "${dbsVars.CommandChannel.id}",
+          "color": "0077FF",
+          "title": "LOL",
+          "url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+          "authorname": "Gamer Bot",
+          "authorimageurl": "",
+          "authorlink": "",
+          "description": "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+          "thumbnail": "",
+          "image": "",
+          "footer": "",
+          "timestamp": "false",
+          "savetovariable": "",
+          "savetovariabletype": "temp"
+        }
+      ]
+    },
+    {
+      "name": "clear",
+      "perms": [
+        "admin",
+        "moderation",
+        "inhaber"
+      ],
+      "actions": [
+        {
+          "name": "ist der user admin_5",
+          "category": "User Action",
+          "type": "Check User Permissions",
+          "trueActions": [
+            {
+              "name": "DEL",
+              "category": "Channel Action",
+              "type": "Delete All Messages",
+              "channelname": "${dbsVars.CommandChannel.id}",
+              "msgcount": "100"
+            }
+          ],
+          "falseActions": [
+            {
+              "name": "Error Nachicht_9",
+              "category": "Message",
+              "type": "Send Message",
+              "channelname": "${dbsVars.CommandChannel.id}",
+              "messagetext": "Nur Admins können diesen befehl ausführen",
+              "savetovariable": "",
+              "savetovariabletype": "temp"
+            }
+          ],
+          "user": "${dbsVars.CommandAuthor.id}",
+          "permissions": [
+            "ADMINISTRATOR"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "nicht_stören",
+      "perms": [],
+      "actions": [
+        {
+          "name": "ist der user admin_3",
+          "category": "User Action",
+          "type": "Check User Permissions",
+          "trueActions": [
+            {
+              "name": "ausführung",
+              "category": "Bot Action",
+              "type": "Set Bot Status",
+              "presencestatus": "dnd"
+            }
+          ],
+          "falseActions": [
+            {
+              "name": "Error Nachicht_4",
+              "category": "Message",
+              "type": "Send Message",
+              "channelname": "${dbsVars.CommandChannel.id}",
+              "messagetext": "Nur Admins können diesen befehl ausführen",
+              "savetovariable": "",
+              "savetovariabletype": "temp"
+            }
+          ],
+          "user": "${dbsVars.CommandAuthor.id}",
+          "permissions": [
+            "ADMINISTRATOR"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Abwesend",
+      "actions": [
+        {
+          "name": "ist der user admin_2",
+          "category": "User Action",
+          "type": "Check User Permissions",
+          "trueActions": [
+            {
+              "name": "ausführung_2",
+              "category": "Bot Action",
+              "type": "Set Bot Status",
+              "presencestatus": "idle"
+            }
+          ],
+          "falseActions": [
+            {
+              "name": "Error Nachicht_3",
+              "category": "Message",
+              "type": "Send Message",
+              "channelname": "${dbsVars.CommandChannel.id}",
+              "messagetext": "Nur Admins können diesen befehl ausführen",
+              "savetovariable": "",
+              "savetovariabletype": "temp"
+            }
+          ],
+          "user": "${dbsVars.CommandAuthor.id}",
+          "permissions": [
+            "ADMINISTRATOR"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Off",
+      "actions": [
+        {
+          "name": "ist der user admin_4",
+          "category": "User Action",
+          "type": "Check User Permissions",
+          "trueActions": [
+            {
+              "name": "ausführung_3",
+              "category": "Bot Action",
+              "type": "Set Bot Status",
+              "presencestatus": "invisible"
+            }
+          ],
+          "falseActions": [
+            {
+              "name": "Error Nachicht_5",
+              "category": "Message",
+              "type": "Send Message",
+              "channelname": "${dbsVars.CommandChannel.id}",
+              "messagetext": "Nur Admins können diesen befehl ausführen",
+              "savetovariable": "",
+              "savetovariabletype": "temp"
+            }
+          ],
+          "user": "${dbsVars.CommandAuthor.id}",
+          "permissions": [
+            "ADMINISTRATOR"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "On",
+      "actions": [
+        {
+          "name": "ist der user admin_1",
+          "category": "User Action",
+          "type": "Check User Permissions",
+          "trueActions": [
+            {
+              "name": "ausführung_1",
+              "category": "Bot Action",
+              "type": "Set Bot Status",
+              "presencestatus": "online"
+            }
+          ],
+          "falseActions": [
+            {
+              "name": "Error Nachicht_2",
+              "category": "Message",
+              "type": "Send Message",
+              "channelname": "${dbsVars.CommandChannel.id}",
+              "messagetext": "Nur Admins können diesen befehl ausführen",
+              "savetovariable": "",
+              "savetovariabletype": "temp"
+            }
+          ],
+          "user": "${dbsVars.CommandAuthor.id}",
+          "permissions": [
+            "ADMINISTRATOR"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Inhaber",
+      "actions": [
+        {
+          "name": "ist der user admin 2",
+          "category": "User Action",
+          "type": "Check User Permissions",
+          "trueActions": [
+            {
+              "name": "finde den user der der zum Admin gemacht werden soll",
+              "category": "Variable",
+              "type": "Get Mentioned User",
+              "varname": "GSA",
+              "vartype": "User",
+              "savevartype": "temp"
+            },
+            {
+              "name": "Admin",
+              "category": "User Action",
+              "type": "Add Role to User",
+              "user": "${tempVars.GSA.id}",
+              "rolename": "Inhaber"
+            },
+            {
+              "name": "der user wurde zum inhaber gemacht",
+              "category": "Message",
+              "type": "Send Message",
+              "channelname": "${dbsVars.CommandChannel.id}",
+              "messagetext": "der user wurde zum inhaber gemacht",
+              "savetovariable": "",
+              "savetovariabletype": "temp"
+            }
+          ],
+          "falseActions": [
+            {
+              "name": "Error Nachicht_1",
+              "category": "Message",
+              "type": "Send Message",
+              "channelname": "${dbsVars.CommandChannel.id}",
+              "messagetext": "Nur Admins können diesen befehl ausführen",
+              "savetovariable": "",
+              "savetovariabletype": "temp"
+            }
+          ],
+          "user": "${dbsVars.CommandAuthor.id}",
+          "permissions": [
+            "ADMINISTRATOR"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "xp",
+      "actions": [
+        {
+          "name": "get user´s xp",
+          "category": "User Data",
+          "type": "Get User Data",
+          "user": "${dbsVars.CommandAuthor.id}",
+          "field": "xp",
+          "varname": "UserXP",
+          "savevartype": "temp",
+          "vartype": "User"
+        },
+        {
+          "name": "Zeige die XP an",
+          "category": "Message",
+          "type": "Send Message",
+          "channelname": "${dbsVars.CommandChannel.id}",
+          "messagetext": "Du hast ${tempVars.UserXP} xp",
+          "savetovariable": "",
+          "savetovariabletype": "temp"
+        }
+      ]
+    },
+    {
+      "name": "givexp",
+      "actions": [
+        {
+          "name": "ist der user admin",
+          "category": "User Action",
+          "type": "Check User Permissions",
+          "trueActions": [
+            {
+              "name": "xpuser",
+              "category": "Variable",
+              "type": "Get Mentioned User",
+              "varname": "xpuser",
+              "vartype": "User",
+              "savevartype": "temp"
+            },
+            {
+              "name": "gib dem user xp",
+              "category": "Variable",
+              "type": "Store Value in Variable",
+              "varname": "xpamount",
+              "vartype": "Number",
+              "savevartype": "temp",
+              "param": "2"
+            },
+            {
+              "name": "gib dem user die xp",
+              "category": "User Data",
+              "type": "Edit User Data",
+              "user": "${tempVars.xpuser.id}",
+              "field": "xp",
+              "oper": "+",
+              "value": "${tempVars.xpamount}"
+            },
+            {
+              "name": "rückmeldung",
+              "category": "Message",
+              "type": "Send Message",
+              "channelname": "${dbsVars.CommandChannel.id}",
+              "messagetext": "<@${tempVars.xpuser.id}> wurde/n ${tempVars.xpamount} xp gegeben",
+              "savetovariable": "",
+              "savetovariabletype": "temp"
+            }
+          ],
+          "falseActions": [
+            {
+              "name": "Error Nachicht",
+              "category": "Message",
+              "type": "Send Message",
+              "channelname": "${dbsVars.CommandChannel.id}",
+              "messagetext": "Nur Admins können diesen befehl ausführen",
+              "savetovariable": "",
+              "savetovariabletype": "temp"
+            }
+          ],
+          "user": "${dbsVars.CommandAuthor.id}",
+          "permissions": [
+            "ADMINISTRATOR"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "resetxp",
+      "actions": [
+        {
+          "name": "ist der user admin 1",
+          "category": "User Action",
+          "type": "Check User Permissions",
+          "trueActions": [
+            {
+              "name": "resete die xp",
+              "category": "Variable",
+              "type": "Edit Variable",
+              "varname": "xpreset",
+              "savevartype": "temp",
+              "oper": "/",
+              "value": "1"
+            }
+          ],
+          "falseActions": [
+            {
+              "name": "Error Nachicht_8",
+              "category": "Message",
+              "type": "Send Message",
+              "channelname": "${dbsVars.CommandChannel.id}",
+              "messagetext": "Nur Admins können diesen befehl ausführen",
+              "savetovariable": "",
+              "savetovariabletype": "temp"
+            }
+          ],
+          "user": "${dbsVars.CommandAuthor.id}",
+          "permissions": [
+            "ADMINISTRATOR"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "bambus",
+      "actions": [
+        {
+          "name": "bambus LOL",
+          "category": "Message",
+          "type": "Send Embed",
+          "channelname": "${dbsVars.CommandChannel.id}",
+          "color": "0008FF",
+          "title": "",
+          "url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+          "authorname": "Bambus",
+          "authorimageurl": "",
+          "authorlink": "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+          "description": "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+          "thumbnail": "",
+          "image": "",
+          "footer": "",
+          "timestamp": "false",
+          "savetovariable": "",
+          "savetovariabletype": "temp"
+        }
+      ]
+    },
+    {
+      "name": "A",
+      "actions": [
+        {
+          "name": "Activity Bot",
+          "category": "Bot Action",
+          "type": "Set Bot Activity",
+          "activityname": "Gamer Gott",
+          "activitytype": "WATCHING",
+          "streamurl": ""
+        }
+      ]
+    }
+  ]
+}
